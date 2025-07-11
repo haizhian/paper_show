@@ -21,7 +21,7 @@ import PDF from "../components/PDF.astro";
 import { ImageComparison } from "../components/ImageComparison.tsx";
 
 import outside from "../assets/outside.mp4";
-import overviewFigure from "../assets/Figure3_overview.pdf";
+import overviewFigure from "../assets/Figure3_overview.png";
 import Splat from "../components/Splat.tsx"
 import dogsDiffc from "../assets/dogs-diffc.png"
 import dogsTrue from "../assets/dogs-true.png"
@@ -32,11 +32,10 @@ import Table from "../components/Table.astro";
 export const components = {pre: CodeBlock, table: Table}
 
 <Header
-  title={frontmatter.title}
   title={
     <div class="flex items-center justify-center gap-3">
       CheXPO: Preference Optimization for Chest X-ray VLMs with Counterfactual Rationale
-      <img src="/xidian_logo.svg" alt="University logo" class="h-12 inline-block" />
+      <img src={import.meta.env.BASE_URL + "xidian_logo.svg"} alt="University logo" class="h-12 inline-block" />
     </div>
   }  
   authors={[
@@ -87,7 +86,7 @@ This is a live demo for a template you can use to create a simple project page f
 Use the figure component to display images, videos, equations, or any other element, with an optional caption.
 
 <Figure>
-  <PDF slot="figure" source={overviewFigure} />
+  <Image slot="figure" source={overviewFigure} altText="Overview of our CheXPO method" />
   <span slot="caption">Overview of our CheXPO method for chest X-ray VLM preference optimization.</span>
 </Figure>
 
