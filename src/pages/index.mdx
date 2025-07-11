@@ -1,7 +1,7 @@
 ---
 layout: ../layouts/Layout.astro
-title: Research Project Page Template
-description: Simple project page template for your research paper, built with Astro and Tailwind CSS
+title: CheXPO: Preference Optimization for Chest X-ray VLMs
+with Counterfactual Rationale
 favicon: favicon.svg
 thumbnail: screenshot-light.png
 ---
@@ -16,10 +16,13 @@ import TwoColumns from "../components/TwoColumns.astro";
 import YouTubeVideo from "../components/YouTubeVideo.astro";
 import LaTeX from "../components/LaTeX.astro";
 
+import { Image } from "astro:assets"
+import PDF from "../components/PDF.astro";
+
 import { ImageComparison } from "../components/ImageComparison.tsx";
 
 import outside from "../assets/outside.mp4";
-import transformer from "../assets/transformer.webp";
+import overviewFigure from "../assets/Figure3_overview.pdf";
 import Splat from "../components/Splat.tsx"
 import dogsDiffc from "../assets/dogs-diffc.png"
 import dogsTrue from "../assets/dogs-true.png"
@@ -31,53 +34,35 @@ export const components = {pre: CodeBlock, table: Table}
 
 <Header
   title={frontmatter.title}
+  title={
+    <div class="flex items-center justify-center gap-3">
+      CheXPO: Preference Optimization for Chest X-ray VLMs with Counterfactual Rationale
+      <img src="/xidian_logo.svg" alt="University logo" class="h-12 inline-block" />
+    </div>
+  }  
   authors={[
     {
-      name: "Roman Hauksson",
-      url: "https://roman.technology",
-      institution: "Independent",
-      notes: ["*", "†"],
-    },
-    {
-      name: "Author Two",
-      institution: "Institution Two",
-      notes: ["*", "†"],
-    },
-    {
-      name: "Author Three",
-      institution: "Institution Three",
-      notes: ["†"],
-    },
-    {
-      name: "Author Four",
-      institution: "Institution Four",
+      name: "Xiao liang",
+      url: "https://scholar.google.com/citations?user=OuATjSsAAAAJ&hl=zh-CN",
+      institution: "The Key Laboratory of Smart Human-Computer Interaction and Wearable Technology of Shaanxi Province, Xidian University, Xi’an, China", 
     },
   ]}
-  conference="Conference Name"
-  notes={[
-    {
-      symbol: "*",
-      text: "author note one",
-    },
-    {
-      symbol: "†",
-      text: "author note two",
-    },
-  ]}
+  conference="ACM MM" 
+
   links={[
     {
       name: "Paper",
-      url: "",
+      url: "https://arxiv.org/pdf/2507.06959",
       icon: "ri:file-pdf-2-line",
     },
     {
       name: "Code",
-      url: "https://github.com/RomanHauksson/academic-project-astro-template",
+      url: "https://github.com/ResearchGroup-MedVLLM/CheX-Phi35V",
       icon: "ri:github-line",
     },
     {
       name: "arXiv",
-      url: "",
+      url: "https://arxiv.org/abs/2507.06959",
       icon: "academicons:arxiv",
     },
     {
@@ -103,8 +88,8 @@ This is a live demo for a template you can use to create a simple project page f
 Use the figure component to display images, videos, equations, or any other element, with an optional caption.
 
 <Figure>
-  <Image slot="figure" source={transformer} altText="Diagram of the transformer deep learning architecture." />
-  <span slot="caption">Diagram of the transformer deep learning architecture.</span>
+  <PDF slot="figure" source={overviewFigure} />
+  <span slot="caption">Overview of our CheXPO method for chest X-ray VLM preference optimization.</span>
 </Figure>
 
 ## Image comparison slider
@@ -162,10 +147,13 @@ You can add simple tables using [GitHub Flavored Markdown syntax](https://docs.g
 ## BibTeX citation
 
 ```bibtex
-@misc{roman2024academic,
-  author = "{Roman Hauksson}",
-  title = "Academic Project Page Template",
-  year = "2024",
-  howpublished = "\url{https://research-template.roman.technology}",
+@misc{liang2025chexpopreferenceoptimizationchest,
+      title={CheXPO: Preference Optimization for Chest X-ray VLMs with Counterfactual Rationale}, 
+      author={Xiao Liang and Jiawei Hu and Di Wang and Zhi Ma and Lin Zhao and Ronghan Li and Bo Wan and Quan Wang},
+      year={2025},
+      eprint={2507.06959},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2507.06959}, 
 }
 ```
