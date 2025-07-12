@@ -76,57 +76,312 @@ high-value samples, followed by counterfactual rationale construction for prefer
   max={3000}
 />
 
-## Image comparison slider
 
-An interactive, accessible slider component with keyboard navigation.
-<Figure>
-  <ImageComparison slot="figure" client:load imageUrlOne={dogsDiffc.src} imageUrlTwo={dogsTrue.src} altTextOne="Photo of two dogs running side-by-side in shallow water, lossily compressed using the DiffC algorithm" altTextTwo="Original photo of two dogs running side-by-side in shallow water" />
-  <span slot="caption">A photo of two dogs running side-by-side in shallow water, lossily compressed using the <a href="https://jeremyiv.github.io/diffc-project-page/">DiffC algorithm</a>.</span>
-</Figure>
+## Experimental Results
+<p className="text-sm text-gray-600 dark:text-gray-400 -mt-2">
+  Overall accuracy (%) on our chest X-ray VQA dataset across question and answer types, compared with general and medical VLMs. 
+  *SA* uses short answers; *RA* rewrites rationales via GPT-4o. Our CheX-Phi3.5V uses greedy decoding and **CheXPO** strategy to generate 20k and 30k preference-aligned data.
+</p>
 
-## Two columns
+<div className="overflow-x-auto">
+  <table className="w-full text-sm">
+    <thead>
+      <tr className="border-b-2 border-gray-300 dark:border-gray-600">
+        <th className="text-left py-3 px-2 font-semibold">Model</th>
+        <th className="text-center py-3 px-1 font-semibold">Presence</th>
+        <th className="text-center py-3 px-1 font-semibold">Abnormality</th>
+        <th className="text-center py-3 px-1 font-semibold">Anatomy</th>
+        <th className="text-center py-3 px-1 font-semibold">Severity</th>
+        <th className="text-center py-3 px-1 font-semibold">Plane</th>
+        <th className="text-center py-3 px-1 font-semibold">Type</th>
+        <th className="text-center py-3 px-1 font-semibold">Difference</th>
+        <th className="text-center py-3 px-1 font-semibold">Attribute</th>
+        <th className="text-center py-3 px-1 font-semibold">Size</th>
+        <th className="text-center py-3 px-1 font-semibold">Gender</th>
+        <th className="text-center py-3 px-1 font-semibold">Open</th>
+        <th className="text-center py-3 px-1 font-semibold">Closed</th>
+        <th className="text-center py-3 px-1 font-semibold">Overall</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr className="bg-gray-100 dark:bg-gray-800">
+        <td className="py-2 px-2 font-semibold" colSpan="14">General Visual Language Models</td>
+      </tr>
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="py-2 px-2">LLaVA-v1.6-7B</td>
+        <td className="text-center py-2 px-1">67.67</td>
+        <td className="text-center py-2 px-1">63.97</td>
+        <td className="text-center py-2 px-1">17.92</td>
+        <td className="text-center py-2 px-1">0.00</td>
+        <td className="text-center py-2 px-1">67.71</td>
+        <td className="text-center py-2 px-1">23.81</td>
+        <td className="text-center py-2 px-1">0.00</td>
+        <td className="text-center py-2 px-1">15.17</td>
+        <td className="text-center py-2 px-1">58.18</td>
+        <td className="text-center py-2 px-1">70.00</td>
+        <td className="text-center py-2 px-1">11.07</td>
+        <td className="text-center py-2 px-1">77.52</td>
+        <td className="text-center py-2 px-1">47.26</td>
+      </tr>
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="py-2 px-2">Qwen-VL-Chat</td>
+        <td className="text-center py-2 px-1">66.95</td>
+        <td className="text-center py-2 px-1">63.02</td>
+        <td className="text-center py-2 px-1">21.67</td>
+        <td className="text-center py-2 px-1">18.81</td>
+        <td className="text-center py-2 px-1">88.95</td>
+        <td className="text-center py-2 px-1">14.29</td>
+        <td className="text-center py-2 px-1">81.25</td>
+        <td className="text-center py-2 px-1">21.38</td>
+        <td className="text-center py-2 px-1">45.45</td>
+        <td className="text-center py-2 px-1">36.67</td>
+        <td className="text-center py-2 px-1">25.91</td>
+        <td className="text-center py-2 px-1">76.31</td>
+        <td className="text-center py-2 px-1">53.36</td>
+      </tr>
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="py-2 px-2">Phi3.5V-4.2B</td>
+        <td className="text-center py-2 px-1">57.96</td>
+        <td className="text-center py-2 px-1">27.47</td>
+        <td className="text-center py-2 px-1">11.19</td>
+        <td className="text-center py-2 px-1">1.11</td>
+        <td className="text-center py-2 px-1">38.03</td>
+        <td className="text-center py-2 px-1">0.00</td>
+        <td className="text-center py-2 px-1">0.00</td>
+        <td className="text-center py-2 px-1">17.24</td>
+        <td className="text-center py-2 px-1">18.18</td>
+        <td className="text-center py-2 px-1">63.33</td>
+        <td className="text-center py-2 px-1">7.47</td>
+        <td className="text-center py-2 px-1">51.19</td>
+        <td className="text-center py-2 px-1">31.30</td>
+      </tr>
+      
+      <tr className="bg-gray-100 dark:bg-gray-800">
+        <td className="py-2 px-2 font-semibold" colSpan="14">Medical Visual Language Models</td>
+      </tr>
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="py-2 px-2">Med-Flamingo</td>
+        <td className="text-center py-2 px-1">62.45</td>
+        <td className="text-center py-2 px-1">57.67</td>
+        <td className="text-center py-2 px-1">17.36</td>
+        <td className="text-center py-2 px-1">14.16</td>
+        <td className="text-center py-2 px-1">50.99</td>
+        <td className="text-center py-2 px-1">12.38</td>
+        <td className="text-center py-2 px-1">0.00</td>
+        <td className="text-center py-2 px-1">17.93</td>
+        <td className="text-center py-2 px-1">65.45</td>
+        <td className="text-center py-2 px-1">50.00</td>
+        <td className="text-center py-2 px-1">14.84</td>
+        <td className="text-center py-2 px-1">67.72</td>
+        <td className="text-center py-2 px-1">43.64</td>
+      </tr>
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="py-2 px-2">RadFM</td>
+        <td className="text-center py-2 px-1">59.51</td>
+        <td className="text-center py-2 px-1">48.53</td>
+        <td className="text-center py-2 px-1">12.36</td>
+        <td className="text-center py-2 px-1">7.08</td>
+        <td className="text-center py-2 px-1">40.79</td>
+        <td className="text-center py-2 px-1">8.57</td>
+        <td className="text-center py-2 px-1">0.00</td>
+        <td className="text-center py-2 px-1">13.79</td>
+        <td className="text-center py-2 px-1">63.64</td>
+        <td className="text-center py-2 px-1">63.33</td>
+        <td className="text-center py-2 px-1">9.75</td>
+        <td className="text-center py-2 px-1">62.06</td>
+        <td className="text-center py-2 px-1">38.24</td>
+      </tr>
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="py-2 px-2">LLaVA-Med-7B</td>
+        <td className="text-center py-2 px-1">68.21</td>
+        <td className="text-center py-2 px-1">64.22</td>
+        <td className="text-center py-2 px-1">17.92</td>
+        <td className="text-center py-2 px-1">0.00</td>
+        <td className="text-center py-2 px-1">68.56</td>
+        <td className="text-center py-2 px-1">27.14</td>
+        <td className="text-center py-2 px-1">0.00</td>
+        <td className="text-center py-2 px-1">16.55</td>
+        <td className="text-center py-2 px-1">45.45</td>
+        <td className="text-center py-2 px-1">70.00</td>
+        <td className="text-center py-2 px-1">11.51</td>
+        <td className="text-center py-2 px-1">77.78</td>
+        <td className="text-center py-2 px-1">47.60</td>
+      </tr>
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="py-2 px-2">HuatuoV-7B</td>
+        <td className="text-center py-2 px-1">76.42</td>
+        <td className="text-center py-2 px-1">63.88</td>
+        <td className="text-center py-2 px-1">22.36</td>
+        <td className="text-center py-2 px-1">32.96</td>
+        <td className="text-center py-2 px-1">83.00</td>
+        <td className="text-center py-2 px-1">20.00</td>
+        <td className="text-center py-2 px-1">48.08</td>
+        <td className="text-center py-2 px-1">24.83</td>
+        <td className="text-center py-2 px-1">83.64</td>
+        <td className="text-center py-2 px-1">53.33</td>
+        <td className="text-center py-2 px-1">26.17</td>
+        <td className="text-center py-2 px-1">83.07</td>
+        <td className="text-center py-2 px-1">57.16</td>
+      </tr>
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="py-2 px-2">HuatuoV-34B</td>
+        <td className="text-center py-2 px-1">90.82</td>
+        <td className="text-center py-2 px-1">61.55</td>
+        <td className="text-center py-2 px-1">22.92</td>
+        <td className="text-center py-2 px-1">54.87</td>
+        <td className="text-center py-2 px-1">89.24</td>
+        <td className="text-center py-2 px-1">14.76</td>
+        <td className="text-center py-2 px-1">0.00</td>
+        <td className="text-center py-2 px-1">27.59</td>
+        <td className="text-center py-2 px-1 font-bold">92.73</td>
+        <td className="text-center py-2 px-1">66.67</td>
+        <td className="text-center py-2 px-1">27.27</td>
+        <td className="text-center py-2 px-1">90.97</td>
+        <td className="text-center py-2 px-1">61.96</td>
+      </tr>
+      
+      <tr className="bg-gray-100 dark:bg-gray-800">
+        <td className="py-2 px-2 font-semibold" colSpan="14">Baseline Implementation</td>
+      </tr>
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="py-2 px-2">Phi3.5V+SA</td>
+        <td className="text-center py-2 px-1">81.00</td>
+        <td className="text-center py-2 px-1">62.89</td>
+        <td className="text-center py-2 px-1">44.87</td>
+        <td className="text-center py-2 px-1">60.03</td>
+        <td className="text-center py-2 px-1">95.69</td>
+        <td className="text-center py-2 px-1">63.84</td>
+        <td className="text-center py-2 px-1">91.18</td>
+        <td className="text-center py-2 px-1">73.21</td>
+        <td className="text-center py-2 px-1">63.45</td>
+        <td className="text-center py-2 px-1">66.98</td>
+        <td className="text-center py-2 px-1">55.82</td>
+        <td className="text-center py-2 px-1">81.76</td>
+        <td className="text-center py-2 px-1">69.95</td>
+      </tr>
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="py-2 px-2">Phi3.5V+RA (Baseline)</td>
+        <td className="text-center py-2 px-1">86.26</td>
+        <td className="text-center py-2 px-1">71.46</td>
+        <td className="text-center py-2 px-1">43.86</td>
+        <td className="text-center py-2 px-1">62.16</td>
+        <td className="text-center py-2 px-1">98.30</td>
+        <td className="text-center py-2 px-1">64.74</td>
+        <td className="text-center py-2 px-1">91.18</td>
+        <td className="text-center py-2 px-1">78.80</td>
+        <td className="text-center py-2 px-1">63.62</td>
+        <td className="text-center py-2 px-1">70.68</td>
+        <td className="text-center py-2 px-1">57.53</td>
+        <td className="text-center py-2 px-1">87.77</td>
+        <td className="text-center py-2 px-1">73.20</td>
+      </tr>
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="py-2 px-2">w/ Beam Search</td>
+        <td className="text-center py-2 px-1">87.09</td>
+        <td className="text-center py-2 px-1">74.68</td>
+        <td className="text-center py-2 px-1">39.86</td>
+        <td className="text-center py-2 px-1">55.56</td>
+        <td className="text-center py-2 px-1">98.58</td>
+        <td className="text-center py-2 px-1">61.90</td>
+        <td className="text-center py-2 px-1">92.86</td>
+        <td className="text-center py-2 px-1">55.17</td>
+        <td className="text-center py-2 px-1">81.82</td>
+        <td className="text-center py-2 px-1">63.33</td>
+        <td className="text-center py-2 px-1">53.63</td>
+        <td className="text-center py-2 px-1">90.46</td>
+        <td className="text-center py-2 px-1">73.70</td>
+      </tr>
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="py-2 px-2">w/ DoLa</td>
+        <td className="text-center py-2 px-1">86.44</td>
+        <td className="text-center py-2 px-1">73.62</td>
+        <td className="text-center py-2 px-1">43.33</td>
+        <td className="text-center py-2 px-1">61.50</td>
+        <td className="text-center py-2 px-1 font-bold">98.87</td>
+        <td className="text-center py-2 px-1">62.86</td>
+        <td className="text-center py-2 px-1 font-bold">94.23</td>
+        <td className="text-center py-2 px-1">54.48</td>
+        <td className="text-center py-2 px-1">70.91</td>
+        <td className="text-center py-2 px-1">83.33</td>
+        <td className="text-center py-2 px-1">55.42</td>
+        <td className="text-center py-2 px-1">89.20</td>
+        <td className="text-center py-2 px-1">73.82</td>
+      </tr>
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="py-2 px-2">w/ VCD</td>
+        <td className="text-center py-2 px-1">82.24</td>
+        <td className="text-center py-2 px-1">61.81</td>
+        <td className="text-center py-2 px-1">35.28</td>
+        <td className="text-center py-2 px-1">55.31</td>
+        <td className="text-center py-2 px-1">98.58</td>
+        <td className="text-center py-2 px-1">49.52</td>
+        <td className="text-center py-2 px-1">89.42</td>
+        <td className="text-center py-2 px-1">55.17</td>
+        <td className="text-center py-2 px-1">74.55</td>
+        <td className="text-center py-2 px-1">53.33</td>
+        <td className="text-center py-2 px-1">48.44</td>
+        <td className="text-center py-2 px-1">83.25</td>
+        <td className="text-center py-2 px-1">67.40</td>
+      </tr>
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="py-2 px-2">w/ OPERA</td>
+        <td className="text-center py-2 px-1">82.78</td>
+        <td className="text-center py-2 px-1">63.10</td>
+        <td className="text-center py-2 px-1">37.08</td>
+        <td className="text-center py-2 px-1">61.28</td>
+        <td className="text-center py-2 px-1">98.58</td>
+        <td className="text-center py-2 px-1">59.52</td>
+        <td className="text-center py-2 px-1 font-bold">94.23</td>
+        <td className="text-center py-2 px-1">60.00</td>
+        <td className="text-center py-2 px-1">74.55</td>
+        <td className="text-center py-2 px-1">53.33</td>
+        <td className="text-center py-2 px-1">51.65</td>
+        <td className="text-center py-2 px-1">84.21</td>
+        <td className="text-center py-2 px-1">69.38</td>
+      </tr>
+      
+      <tr className="bg-gray-100 dark:bg-gray-800">
+        <td className="py-2 px-2 font-semibold" colSpan="14">Our Proposal</td>
+      </tr>
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="py-2 px-2 font-semibold">CheX-Phi3.5V(20k)</td>
+        <td className="text-center py-2 px-1">89.55</td>
+        <td className="text-center py-2 px-1">76.84</td>
+        <td className="text-center py-2 px-1">46.40</td>
+        <td className="text-center py-2 px-1">67.10</td>
+        <td className="text-center py-2 px-1">98.58</td>
+        <td className="text-center py-2 px-1 font-bold">65.90</td>
+        <td className="text-center py-2 px-1">91.13</td>
+        <td className="text-center py-2 px-1">80.88</td>
+        <td className="text-center py-2 px-1">66.38</td>
+        <td className="text-center py-2 px-1">73.77</td>
+        <td className="text-center py-2 px-1">60.87</td>
+        <td className="text-center py-2 px-1">91.10</td>
+        <td className="text-center py-2 px-1">77.34</td>
+      </tr>
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="py-2 px-2 font-semibold">CheX-Phi3.5V(30k)</td>
+        <td className="text-center py-2 px-1 font-bold">91.39</td>
+        <td className="text-center py-2 px-1 font-bold">80.68</td>
+        <td className="text-center py-2 px-1 font-bold">49.35</td>
+        <td className="text-center py-2 px-1 font-bold">69.12</td>
+        <td className="text-center py-2 px-1 font-bold">98.87</td>
+        <td className="text-center py-2 px-1">65.72</td>
+        <td className="text-center py-2 px-1">91.18</td>
+        <td className="text-center py-2 px-1 font-bold">90.51</td>
+        <td className="text-center py-2 px-1">66.03</td>
+        <td className="text-center py-2 px-1 font-bold">76.54</td>
+        <td className="text-center py-2 px-1 font-bold">63.12</td>
+        <td className="text-center py-2 px-1 font-bold">93.64</td>
+        <td className="text-center py-2 px-1 font-bold">79.74</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-Use the two columns component to display two columns of content. In this example, the first column contains a figure with a YouTube video and the second column contains a figure with a custom [React](https://react.dev/) component. By default, they display side by side, but if the screen is narrow enough (for example, on mobile), they're arranged vertically.
 
-<TwoColumns>
-  <Figure slot="left">
-    <YouTubeVideo slot="figure" videoId="wjZofJX0v4M" />
-    <span slot="caption">Take a look at this YouTube video.</span>
-  </Figure>
-  <Figure slot="right">
-    <Splat slot="figure" client:idle />
-    <span slot="caption">Now look at this <a href="https://en.wikipedia.org/wiki/Gaussian_splatting">Gaussian splat</a>, rendered with a React component.</span>
-  </Figure>
-</TwoColumns>
+## Case 
 
-## Heading levels
-
-Use headings to divide your content into sections.
-
-### Heading 3
-
-Go down a level to heading 3...
-
-#### Heading 4
-
-...and down again to heading 4.
-
-## LaTeX
-
-You can also add LaTeX formulas, rendered during the build process using [KaTeX](https://katex.org/) so they're quick to load for visitors of your project page. You can write them inline, like this: <LaTeX inline formula="a^2 + b^2 = c^2" />. Or, you can write them as a block:
-
-<LaTeX formula="\int_a^b f(x) dx" />
-
-## Tables
-
-You can add simple tables using [GitHub Flavored Markdown syntax](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables):
-
-| Model | Accuracy | F1 score | Training time (hours) |
-| :--- | :---: | :---: | :---: |
-| BERT-base | 0.89 | 0.87 | 4.5 |
-| RoBERTa-large | 0.92 | 0.91 | 7.2 |
-| DistilBERT | 0.86 | 0.84 | 2.1 |
-| XLNet | 0.90 | 0.89 | 6.8 |
 
 ## BibTeX citation
 

@@ -9,7 +9,7 @@ import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
-  base: '/paper_show/', 
+  base: '/paper_show/',  
   integrations: [tailwind(), icon(), mdx(), react(), svelte()],
   markdown: {
     shikiConfig: {
