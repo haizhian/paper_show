@@ -20,7 +20,7 @@ const prefix = baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
       >
         {link.icon && (
           link.icon.startsWith('/') || link.icon.startsWith('http') ? (
-            <img src={link.icon.startsWith('/') ? prefix + link.icon.substring(1) : link.icon} alt="" class="w-6 h-6" />
+            <img src={link.icon.startsWith('/') ? prefix + link.icon.substring(1) : link.icon} alt="" class="w-7 h-7" />
           ) : (
             <Icon name={link.icon} />
           )
