@@ -7,6 +7,8 @@ interface Props {
 }
 
 const { links } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL;
+const prefix = baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
 ---
 
 <div class="flex flex-row flex-wrap justify-center gap-2">
@@ -14,9 +16,15 @@ const { links } = Astro.props;
     links.map((link) => (
       <a
         href={link.url}
-        class="flex flex-row bg-zinc-800 dark:bg-zinc-200 text-white dark:text-zinc-900 rounded-full gap-2 items-center text-lg px-5 py-2 hover:bg-zinc-950 dark:hover:bg-zinc-50 hover:no-underline"
+        class="flex flex-row bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 rounded-full gap-2 items-center text-lg px-5 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:no-underline border border-zinc-300 dark:border-zinc-600"
       >
-        {link.icon && <Icon name={link.icon} />}
+        {link.icon && (
+          link.icon.startsWith('/') || link.icon.startsWith('http') ? (
+            <img src={link.icon.startsWith('/') ? prefix + link.icon.substring(1) : link.icon} alt="" class="w-6 h-6" />
+          ) : (
+            <Icon name={link.icon} />
+          )
+        )}
         <span>{link.name}</span>
       </a>
     ))

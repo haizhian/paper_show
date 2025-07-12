@@ -8,12 +8,13 @@ interface Props {
   title: any;
   authors: Author[];
   conference?: string;
+  conferenceIcon?: string;
   notes?: Note[];
   links: Link[];
   logoSrc?: string;
 }
 
-const { title, authors, conference, notes, links, logoSrc } = Astro.props as Props;
+const { title, authors, conference, conferenceIcon, notes, links, logoSrc } = Astro.props as Props;
 ---
 
 <header class="flex flex-col gap-10 items-center mb-6">
@@ -22,7 +23,7 @@ const { title, authors, conference, notes, links, logoSrc } = Astro.props as Pro
       <img
         src={logoSrc}
         alt="University logo"
-        class="h-20 inline-block"
+        class="h-24 inline-block"
       />
     )}
     <h1 class="text-center text-4xl">
@@ -33,7 +34,18 @@ const { title, authors, conference, notes, links, logoSrc } = Astro.props as Pro
   </div>
   <div class="flex flex-col gap-6 items-center">
     <Authors authors={authors} />
-    {conference && <p class="text-center">{conference}</p>}
+    {conference && (
+      <div class="flex flex-row items-center gap-2 justify-center">
+        {conferenceIcon && (
+          <img
+            src={conferenceIcon}
+            alt="Conference logo"
+            class="h-6 w-6"
+          />
+        )}
+        <p class="text-center">{conference}</p>
+      </div>
+    )}
     {notes && <Notes notes={notes} />}
     {links && <Links links={links} />}
   </div>

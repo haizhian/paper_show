@@ -26,6 +26,7 @@ import Table from "../components/Table.astro";
 import BlueHighlight from "../components/BlueHighlight.astro";
 import FigureLightbox from "../components/FigureLightbox.astro";
 import xidianLogo from "../assets/xidian_logo.svg";
+import acmIcon from "../assets/cib-acm.svg";
 
 
 export const components = { pre: CodeBlock, table: Table };
@@ -41,11 +42,12 @@ export const components = { pre: CodeBlock, table: Table };
     }
   ]}
   conference="ACM MM 2025"
+  conferenceIcon={acmIcon.src}
   links={[
-    { name: "Paper", url: "https://arxiv.org/pdf/2507.06959", icon: "ri:file-pdf-2-line" },
-    { name: "Code",  url: "https://github.com/ResearchGroup-MedVLLM/CheX-Phi35V", icon: "ri:github-line" },
-    { name: "arXiv", url: "https://arxiv.org/abs/2507.06959",  icon: "academicons:arxiv" },
-    { name: "Model", url: "https://huggingface.co/HaiZhiYan/CheX-Phi35V/tree/main", icon: "simple-icons:huggingface" },
+    { name: "Paper", url: "https://arxiv.org/pdf/2507.06959", icon: "/icons/pdf.svg" },
+    { name: "Code",  url: "https://github.com/ResearchGroup-MedVLLM/CheX-Phi35V", icon: "/icons/github.svg" },
+    { name: "arXiv", url: "https://arxiv.org/abs/2507.06959",  icon: "/icons/Arxiv.svg" },
+    { name: "Model", url: "https://huggingface.co/HaiZhiYan/CheX-Phi35V/tree/main", icon: "/icons/Hugging_Face.svg" },
   ]}
 />
 
@@ -67,15 +69,12 @@ export const components = { pre: CodeBlock, table: Table };
 Overview of our chest X-ray VLM training pipeline. Our framework leverages visual instruction tuning and preference
 alignment, fine-tuning Phi-3.5V with LoRA to obtain a base SFT model. A confidence-similarity joint mining strategy selects
 high-value samples, followed by counterfactual rationale construction for preference alignment to reinforce clinical reliability
-<Figure>
-  <img
-    slot="figure"
-    src={import.meta.env.BASE_URL + "/Figure3_overview.svg"}
-    alt="Overview of our CheXPO method"
-    class="w-full max-w-[1200px] object-contain mx-auto rounded-lg shadow"
-  />
-  <span slot="caption">…</span>
-</Figure>
+<FigureLightbox
+  src={import.meta.env.BASE_URL + "/Figure3_overview.svg"}
+  alt="Overview of our CheXPO method"
+  caption="Overview of our CheXPO method for chest-X-ray VLM preference optimization."
+  max={2000}
+/>
 
 ## Image comparison slider
 
