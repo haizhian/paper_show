@@ -1,8 +1,9 @@
 ---
 layout: ../layouts/Layout.astro
-title="CheXPO: Preference Optimization for Chest X-ray VLMs with Counterfactual Rationale"  
-favicon: favicon.svg
-thumbnail: screenshot-light.png
+title: "CheXPO: Preference Optimization for Chest X-ray VLMs with Counterfactual Rationale"
+logoSrc: "/xidian_logo.svg"         
+favicon: "/favicon.svg"
+thumbnail: "/screenshot-light.png"
 ---
 
 import Header from "../components/Header.astro";
@@ -14,77 +15,59 @@ import Image from "../components/Image.astro";
 import TwoColumns from "../components/TwoColumns.astro";
 import YouTubeVideo from "../components/YouTubeVideo.astro";
 import LaTeX from "../components/LaTeX.astro";
-
-import { Image as AstroImage } from "astro:assets"
+import { Image as AstroImage } from "astro:assets";
 import PDF from "../components/PDF.astro";
-
 import { ImageComparison } from "../components/ImageComparison.tsx";
-
 import outside from "../assets/outside.mp4";
 import overviewFigure from "../assets/Figure3_overview.png";
-import Splat from "../components/Splat.tsx"
-import dogsDiffc from "../assets/dogs-diffc.png"
-import dogsTrue from "../assets/dogs-true.png"
-
-
+import Splat from "../components/Splat.tsx";
+import dogsDiffc from "../assets/dogs-diffc.png";
+import dogsTrue from "../assets/dogs-true.png";
 import CodeBlock from "../components/CodeBlock.astro";
 import Table from "../components/Table.astro";
-export const components = {pre: CodeBlock, table: Table}
+import BlueHighlight from "../components/BlueHighlight.astro";
+import Figure1_moti_1 from "../assets/Figure1_moti_1.png";
+import FigureLightbox from "../components/FigureLightbox.astro";
+
+
+export const components = { pre: CodeBlock, table: Table };
 
 <Header
-  title={
-    <div class="flex items-center justify-center gap-3">
-      CheXPO: Preference Optimization for Chest X-ray VLMs with Counterfactual Rationale
-      <img src={import.meta.env.BASE_URL + "xidian_logo.svg"} alt="University logo" class="h-16" />
-    </div>
-  }  
+  title="CheXPO: Preference Optimization for Chest X-ray VLMs with Counterfactual Rationale"
+  logoSrc="/xidian_logo.svg"
   authors={[
     {
-      name: "Xiao liang",
+      name: "Xiao Liang",
       url: "https://scholar.google.com/citations?user=OuATjSsAAAAJ&hl=zh-CN",
-      institution: "The Key Laboratory of Smart Human-Computer Interaction and Wearable Technology of Shaanxi Province, Xidian University, Xi’an, China", 
-    },
-  ]}
-  conference="ACM MM 2025" 
-
-  links={[
-    {
-      name: "Paper",
-      url: "https://arxiv.org/pdf/2507.06959",
-      icon: "ri:file-pdf-2-line",
-    },
-    {
-      name: "Code",
-      url: "https://github.com/ResearchGroup-MedVLLM/CheX-Phi35V",
-      icon: "ri:github-line",
-    },
-    {
-      name: "arXiv",
-      url: "https://arxiv.org/abs/2507.06959",
-      icon: "academicons:arxiv",
-    },
-    {
-      name: "Bluesky",
-      url: "",
-      icon: "ri:bluesky-line"
+      institution: "Xidian University, Xi’an, China"
     }
   ]}
-  />
+  conference="ACM MM 2025"
+  links={[
+    { name: "Paper", url: "https://arxiv.org/pdf/2507.06959", icon: "ri:file-pdf-2-line" },
+    { name: "Code",  url: "https://github.com/ResearchGroup-MedVLLM/CheX-Phi35V", icon: "ri:github-line" },
+    { name: "arXiv", url: "https://arxiv.org/abs/2507.06959",  icon: "academicons:arxiv" }
+  ]}
+/>
 
-<Video source={outside} />
-
+<FigureLightbox
+  src={Figure1_moti_1.src}
+  alt="Figure 1. Motivation of CheXPO"
+  max={30000}
+/>
 <HighlightedSection>
 
 ## Abstract
-
-This is a live demo for a template you can use to create a simple project page for your research paper. See the code for the template and instructions on how to use it yourself [here](https://github.com/RomanHauksson/academic-project-astro-template). It's made with the [Astro web framework](https://astro.build/) and styled with [Tailwind CSS](https://tailwindcss.com/). You write the content in [MDX](https://mdxjs.com/), which enables markdown formatting like **bold**, _italics_, and ~strikethrough~, as well as custom components like <SmallCaps>small caps.</SmallCaps>
+<p className="text-lg leading-relaxed">
+  Vision-language models (VLMs) are prone to hallucinations that critically compromise reliability in medical applications. While preference optimization can mitigate these hallucinations through clinical feedback, its implementation faces challenges such as clinically irrelevant training samples, imbalanced data distributions, and prohibitive expert annotation costs. To address these challenges, we introduce **CheXPO**, a **Che**st **X**-ray **P**reference **O**ptimization strategy that combines <BlueHighlight>confidence-similarity joint mining</BlueHighlight> with <BlueHighlight>counterfactual rationale</BlueHighlight>. Our approach begins by synthesizing a unified, fine-grained multi-task chest X-ray visual instruction dataset across different question types for supervised fine-tuning (SFT). We then identify hard examples through <BlueHighlight>token-level confidence analysis</BlueHighlight> of SFT failures and use <BlueHighlight>similarity-based retrieval</BlueHighlight> to expand hard examples for balancing preference sample distributions, while <BlueHighlight>synthetic counterfactual rationales</BlueHighlight> provide fine-grained clinical preferences, eliminating the need for additional expert input. Experiments show that CheXPO achieves 8.93% relative performance gain using only 5% of SFT samples, reaching state-of-the-art performance across diverse clinical tasks and providing a scalable, interpretable solution for real-world radiology applications.
+</p>
 
 </HighlightedSection>
+## Method Openreview
 
-## Figures
-
-Use the figure component to display images, videos, equations, or any other element, with an optional caption.
-
+Overview of our chest X-ray VLM training pipeline. Our framework leverages visual instruction tuning and preference
+alignment, fine-tuning Phi-3.5V with LoRA to obtain a base SFT model. A confidence-similarity joint mining strategy selects
+high-value samples, followed by counterfactual rationale construction for preference alignment to reinforce clinical reliability
 <Figure>
   <Image slot="figure" source={overviewFigure} altText="Overview of our CheXPO method" />
   <span slot="caption">Overview of our CheXPO method for chest X-ray VLM preference optimization.</span>

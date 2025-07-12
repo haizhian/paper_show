@@ -1,0 +1,85 @@
+---
+/* 接收 3 个 props: src, alt, max (弹窗最大宽, 可选) */
+const { src, alt, max = 1400 } = Astro.props;
+
+// 生成唯一ID，避免多个实例冲突
+const dialogId = `lightbox-${Math.random().toString(36).substring(2, 11)}`;
+---
+
+<figure class="mb-8 flex flex-col items-center">
+  <!-- 缩略图：800px 封顶 -->
+  <img
+    src={src}
+    alt={alt}
+    class="w-full max-w-[3500px] object-contain cursor-zoom-in rounded-lg shadow hover:opacity-100 transition-opacity"
+    data-dialog-id={dialogId}
+  />
+
+  <figcaption class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+    {alt}
+  </figcaption>
+
+  <!-- Lightbox 对话框 -->
+  <dialog
+    id={dialogId}
+    class="backdrop:bg-black/70 p-0 border-0 rounded-lg overflow-hidden"
+  >
+    <img
+      src={src}
+      alt={alt}
+      style={`max-width: ${max}px;`}
+      class="w-full object-contain rounded-lg"
+    />
+
+    <!-- 关闭按钮 -->
+    <button
+      class="absolute top-2 right-2 text-white bg-black/30 hover:bg-black/50 rounded-full w-8 h-8 text-xl leading-none flex items-center justify-center transition-colors"
+      data-close-dialog={dialogId}
+      aria-label="关闭"
+    >
+      ×
+    </button>
+  </dialog>
+</figure>
+
+<script>
+  // 客户端 JavaScript，在页面加载后执行
+  document.addEventListener('DOMContentLoaded', () => {
+    // 为所有图片添加点击事件
+    document.querySelectorAll('img[data-dialog-id]').forEach(img => {
+      img.addEventListener('click', () => {
+        const dialogId = img.getAttribute('data-dialog-id');
+        const dialog = document.getElementById(dialogId);
+        if (dialog) {
+          (dialog as HTMLDialogElement).showModal();
+        }
+      });
+    });
+
+    // 为所有关闭按钮添加点击事件
+    document.querySelectorAll('button[data-close-dialog]').forEach(button => {
+      button.addEventListener('click', () => {
+        const dialogId = button.getAttribute('data-close-dialog');
+        const dialog = document.getElementById(dialogId);
+        if (dialog) {
+          (dialog as HTMLDialogElement).close();
+        }
+      });
+    });
+  });
+</script>
+
+<style is:global>
+  dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+  
+  dialog[open] {
+    animation: fadeIn 0.2s ease-out;
+  }
+  
+  @keyframes fadeIn { 
+    from { opacity: 0; transform: scale(0.96); } 
+    to { opacity: 1; transform: scale(1); } 
+  }
+</style>

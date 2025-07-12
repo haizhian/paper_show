@@ -20,7 +20,7 @@ p {
   @apply text-lg w-full;
 }
 h1 {
-  @apply text-5xl text-center font-medium;
+  @apply text-4xl text-center font-medium;
 }
 h2 {
   @apply w-full text-3xl font-bold;
