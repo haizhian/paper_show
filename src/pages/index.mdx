@@ -1,7 +1,6 @@
 ---
 layout: ../layouts/Layout.astro
-title: "CheXPO: Preference Optimization for Chest X-ray VLMs with Counterfactual Rationale"
-logoSrc: "/xidian_logo.svg"         
+title: "CheXPO: Preference Optimization for Chest X-ray VLMs with Counterfactual Rationale"       
 favicon: "/favicon.svg"
 thumbnail: "/screenshot-light.png"
 ---
@@ -28,18 +27,19 @@ import Table from "../components/Table.astro";
 import BlueHighlight from "../components/BlueHighlight.astro";
 import Figure1_moti_1 from "../assets/Figure1_moti_1.png";
 import FigureLightbox from "../components/FigureLightbox.astro";
+import xidianLogo from "../assets/xidian_logo.svg";
 
 
 export const components = { pre: CodeBlock, table: Table };
 
 <Header
   title="CheXPO: Preference Optimization for Chest X-ray VLMs with Counterfactual Rationale"
-  logoSrc="/xidian_logo.svg"
+  logoSrc={xidianLogo.src}
   authors={[
     {
       name: "Xiao Liang",
       url: "https://scholar.google.com/citations?user=OuATjSsAAAAJ&hl=zh-CN",
-      institution: "Xidian University, Xi’an, China"
+      institution: "Xidian University, Xi'an, China"
     }
   ]}
   conference="ACM MM 2025"
