@@ -18,14 +18,12 @@ import { Image as AstroImage } from "astro:assets";
 import PDF from "../components/PDF.astro";
 import { ImageComparison } from "../components/ImageComparison.tsx";
 import outside from "../assets/outside.mp4";
-import overviewFigure from "../assets/Figure3_overview.png";
 import Splat from "../components/Splat.tsx";
 import dogsDiffc from "../assets/dogs-diffc.png";
 import dogsTrue from "../assets/dogs-true.png";
 import CodeBlock from "../components/CodeBlock.astro";
 import Table from "../components/Table.astro";
 import BlueHighlight from "../components/BlueHighlight.astro";
-import Figure1_moti_1 from "../assets/Figure1_moti_1.png";
 import FigureLightbox from "../components/FigureLightbox.astro";
 import xidianLogo from "../assets/xidian_logo.svg";
 
@@ -51,9 +49,9 @@ export const components = { pre: CodeBlock, table: Table };
 />
 
 <FigureLightbox
-  src={Figure1_moti_1.src}
-  alt="Figure 1. Motivation of CheXPO"
-  max={30000}
+  src="/F1_real_moti.svg"
+  alt="Figure 1 · Motivation of CheXPO"
+  max={2000}
 />
 <HighlightedSection>
 
@@ -69,8 +67,15 @@ Overview of our chest X-ray VLM training pipeline. Our framework leverages visua
 alignment, fine-tuning Phi-3.5V with LoRA to obtain a base SFT model. A confidence-similarity joint mining strategy selects
 high-value samples, followed by counterfactual rationale construction for preference alignment to reinforce clinical reliability
 <Figure>
-  <Image slot="figure" source={overviewFigure} altText="Overview of our CheXPO method" />
-  <span slot="caption">Overview of our CheXPO method for chest X-ray VLM preference optimization.</span>
+  <img
+    slot="figure"
+    src="/Figure3_overview.svg"
+    alt="Overview of our CheXPO method"
+    class="w-full max-w-[1200px] object-contain mx-auto rounded-lg shadow"
+  />
+  <span slot="caption">
+    Overview of our CheXPO method for chest-X-ray VLM preference optimization.
+  </span>
 </Figure>
 
 ## Image comparison slider
